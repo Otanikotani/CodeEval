@@ -1,4 +1,4 @@
-package easy.selfdescribingnumbers;
+package easy.penultimateword;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,27 +8,22 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Main selfDescribingNumbers = new Main();
-        selfDescribingNumbers.solve(args);
+        Main penultimateWord = new Main();
+        penultimateWord.solve(args);
         return;
     }
 
     public void solve(String[] args) throws IOException {
-        List<Integer> results = new ArrayList<Integer>();
         List<String> lines = getLines(args);
         for (String line: lines) {
-            results.add(isSelfDescribing(line));
-        }
-        for (Integer result: results) {
-            System.out.println(result);
+            String[] split = line.split(" ");
+            System.out.println(split[split.length - 2]);
         }
     }
 
@@ -50,28 +45,4 @@ public class Main {
             return result;
         }
     }
-
-    private Integer isSelfDescribing(final String value) {
-        List<Integer> digits = new ArrayList<Integer>();
-        for (String digit: value.split("")) {
-            if (!digit.isEmpty())
-                digits.add(Integer.valueOf(digit));
-        }
-        Map<Integer, Integer> numberOfDigits = new HashMap<Integer, Integer>();
-        for (int i = 0; i < 10; i++) {
-            numberOfDigits.put(i, 0);
-        }
-
-        for (Integer digit: digits) {
-            numberOfDigits.put(digit, numberOfDigits.get(digit) + 1);
-        }
-        for (int position = 0; position < digits.size(); position++) {
-            Integer digit = digits.get(position);
-            if (numberOfDigits.get(position) != digit) {
-                return 0;
-            }
-        }
-        return 1;
-    }
-
 }
