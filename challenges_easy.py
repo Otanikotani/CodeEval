@@ -236,11 +236,6 @@ sortedAndFiltered = sorted(set(challenges))
 for line in sortedAndFiltered:
 	packageName = line.replace(' ' ,'').lower()
 	print(packageName)
-	# os.makedirs('C:/Users/user/Dropbox/CodeEval/src/main/java/' + DIFFICULTY + '/' + packageName)
-	challengeClassFile = io.open('C:/Users/user/Dropbox/CodeEval/src/main/java/' + DIFFICULTY + '/' + packageName + '/Main.java', 'w')
-
-	for line in io.open('challenge_class_template.txt', 'r'):
-	    line = line.replace('${packageName}', packageName)
-	    challengeClassFile.write(line)
-	challengeClassFile.close()
-
+	# os.makedirs('C:/Users/user/Dropbox/CodeEval/src/main/resources/' + DIFFICULTY + '/' + packageName)
+	challengeResourceFile = io.open('C:/Users/user/Dropbox/CodeEval/src/main/resources/' + DIFFICULTY + '/' + packageName + '/MainSample.txt', 'w')
+	challengeResourceFile.write('');
