@@ -22,9 +22,42 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            StringBuilder sb = new StringBuilder();
+            int number = Integer.parseInt(line);
+            int thousands = number / 1000;
+            int hundreds = (number / 100) % 10;
+            int dozens = (number / 10)  % 10;
+            int ones = (number / 1) % 10;
+
+            for (int i = 0 ; i < thousands; i++) {
+                sb.append("M");
+            }
+            add("M", "D", "C", sb, hundreds);
+            add("C", "L", "X", sb, dozens);
+            add("X", "V", "I", sb, ones);
+            System.out.println(sb.toString());
         }
     }
+
+    private void add(String tens, String fives, String ones, StringBuilder sb, int number) {
+
+        if (number == 4) {
+            sb.append(ones + fives);
+        } else if (number == 9) {
+            sb.append(ones + tens);
+        } else if (number >= 5) {
+            sb.append(fives);
+            for (int i = 0; i < (number - 5); i++) {
+                sb.append(ones);
+            }
+        } else {
+            for (int i = 0; i < number; i++) {
+                sb.append(ones);
+            }
+        }
+    }
+
+
 
 
     public List<String> getLines(String[] args) throws IOException {
