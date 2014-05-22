@@ -7,8 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -22,8 +21,40 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            int answer = line.length();
+            for (Integer divisor: findAllDivisors(line.length())) {
+                StringBuilder regex = new StringBuilder();
+                regex.append("(?<=\\G");
+                for (int i = 0; i < divisor; i++ ) {
+                    regex.append(".");
+                }
+                regex.append(")");
+                String[] splitStrings = line.split(regex.toString());
+                HashSet<String> repetitions = new HashSet<String>();
+                repetitions.add(splitStrings[0]);
+                boolean noMatch = false;
+                for (String splitString: splitStrings) {
+                    if (!repetitions.contains(splitString)) {
+                        noMatch = true;
+                        break;
+                    }
+                }
+                if (!noMatch) {
+                    answer = Math.min(divisor, answer);
+                }
+            }
+            System.out.println(answer);
         }
+    }
+
+    public static Set<Integer> findAllDivisors(int number) {
+        Set<Integer> factors = new LinkedHashSet<Integer>();
+        for (int i = 1; i <= number; i++) {
+            if (number % i == 0) {
+                factors.add(i);
+            }
+        }
+        return factors;
     }
 
 
