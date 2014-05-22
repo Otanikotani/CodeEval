@@ -7,11 +7,12 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Main {
+
+    Set<Integer> repetitions  = new HashSet<Integer>();
 
     public static void main(String[] args) throws IOException {
         Main happynumbers = new Main();
@@ -22,9 +23,39 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            repetitions.clear();
+            findHappyNumber(Integer.parseInt(line));
         }
     }
+
+    private void findHappyNumber(int number) {
+        if (number == 1) {
+            System.out.println("1");
+            return;
+        }
+        List<Integer> digits = getDigits(number);
+        int sum = 0;
+        for (Integer digit: digits) {
+            sum += digit * digit;
+        }
+        if (repetitions.contains(sum)) {
+            System.out.println("0");
+        } else {
+            repetitions.add(sum);
+            findHappyNumber(sum);
+        }
+    }
+
+    public List<Integer> getDigits(int number) {
+        List<Integer> result = new ArrayList<Integer>();
+        while (number > 0) {
+            result.add(number % 10);
+            number = number / 10;
+        }
+        Collections.reverse(result);
+        return result;
+    }
+
 
 
     public List<String> getLines(String[] args) throws IOException {
