@@ -21,8 +21,21 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        for (String line : lines) {
+            String[] parts = line.split(",");
+            Integer numberInt = Integer.parseInt(parts[0]);
+            Integer test = Integer.parseInt(parts[0]);
+            Integer mod = Integer.parseInt(parts[1]);
+            if (numberInt < mod) {
+                System.out.println(numberInt);
+                continue;
+            }
+            while ((numberInt -= mod) > 0) ;
+            if (numberInt == 0) {
+                System.out.println(numberInt);
+            } else {
+                System.out.println(numberInt + mod);
+            }
         }
     }
 
