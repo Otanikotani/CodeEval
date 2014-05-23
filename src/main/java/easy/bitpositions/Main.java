@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,7 +23,11 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(",");
+            int number = Integer.parseInt(parts[0]);
+            int p1 = Integer.parseInt(parts[1]);
+            int p2 = Integer.parseInt(parts[2]);
+            System.out.println(BigInteger.valueOf(number).testBit(p1 - 1) == BigInteger.valueOf(number).testBit(p2 - 1));
         }
     }
 
