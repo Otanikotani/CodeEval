@@ -22,7 +22,14 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] numbers = line.split(",");
+            int x = Integer.parseInt(numbers[0]);
+            int n = Integer.parseInt(numbers[1]);
+            int i = 1;
+            while (i * n < x) {
+                i++;
+            }
+            System.out.println(i * n);
         }
     }
 
