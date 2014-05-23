@@ -21,9 +21,11 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
+        int sum = 0;
         for (String line: lines) {
-            System.out.println(line);
+            sum += Integer.parseInt(line);
         }
+        System.out.println(sum);
     }
 
 
