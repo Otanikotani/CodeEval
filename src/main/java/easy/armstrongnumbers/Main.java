@@ -22,7 +22,15 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            int number = Integer.parseInt(line);
+            int pow = line.length();
+            int sum = 0;
+            int tmp = number;
+            while (tmp > 0) {
+                sum += Math.pow(tmp % 10, pow);
+                tmp = tmp / 10;
+            }
+            System.out.println(sum == number ? "True": "False");
         }
     }
 
