@@ -22,7 +22,15 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+//            System.out.println(line);
+            String[] words = line.split(" ");
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (String word: words) {
+                sb.append(delimiter).append(Character.toUpperCase(word.charAt(0)) + word.substring(1));
+                delimiter = " ";
+            }
+            System.out.println(sb.toString());
         }
     }
 
