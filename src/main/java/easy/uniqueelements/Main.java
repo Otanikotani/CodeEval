@@ -8,7 +8,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -22,7 +24,19 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(",");
+            Set<Integer> ints = new LinkedHashSet<Integer>();
+            for (String part: parts) {
+                ints.add(Integer.parseInt(part));
+            }
+
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (Integer integer: ints) {
+                sb.append(delimiter).append(integer);
+                delimiter = ",";
+            }
+            System.out.println(sb.toString());
         }
     }
 
