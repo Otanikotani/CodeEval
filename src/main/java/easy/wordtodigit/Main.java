@@ -22,7 +22,33 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+//            System.out.println(line);
+            String[] words = line.split(";");
+            StringBuilder sb = new StringBuilder();
+            for (String word: words) {
+                if (word.equals("zero")) {
+                    sb.append("0");
+                } else if (word.equals("one")) {
+                    sb.append("1");
+                } else if (word.equals("two")) {
+                    sb.append("2");
+                } else if (word.equals("three")) {
+                    sb.append("3");
+                } else if (word.equals("four")) {
+                    sb.append("4");
+                } else if (word.equals("five")) {
+                    sb.append("5");
+                } else if (word.equals("six")) {
+                    sb.append("6");
+                } else if (word.equals("seven")) {
+                    sb.append("7");
+                } else if (word.equals("eight")) {
+                    sb.append("8");
+                } else if (word.equals("nine")) {
+                    sb.append("9");
+                }
+            }
+            System.out.println(sb.toString());
         }
     }
 
