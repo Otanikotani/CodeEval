@@ -22,7 +22,8 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            Integer number = Integer.parseInt(line);
+            System.out.println((number % 2 != 0) ? 0 : 1);
         }
     }
 
