@@ -22,7 +22,14 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split("\\|");
+            String encoded = parts[0];
+            String keys = parts[1];
+            StringBuilder sb = new StringBuilder();
+            for (String key: keys.trim().split(" ")) {
+                sb.append(encoded.charAt(Integer.parseInt(key) - 1));
+            }
+            System.out.println(sb.toString());
         }
     }
 
