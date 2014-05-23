@@ -22,7 +22,32 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(",");
+            List<String> numbers = new ArrayList<String>();
+            List<String> words = new ArrayList<String>();
+            for (String part: parts) {
+                try {
+                    Integer.parseInt(part);
+                    numbers.add(part);
+                } catch (NumberFormatException nfe) {
+                    words.add(part);
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (String word: words) {
+                sb.append(delimiter).append(word);
+                delimiter = ",";
+            }
+            delimiter = "";
+            if (sb.length() > 0 && !numbers.isEmpty()) {
+                sb.append("|");
+            }
+            for (String number: numbers) {
+                sb.append(delimiter).append(number);
+                delimiter = ",";
+            }
+            System.out.println(sb.toString());
         }
     }
 
