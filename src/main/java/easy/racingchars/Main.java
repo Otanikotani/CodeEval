@@ -21,7 +21,18 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
+        int prevIndex = -1;
         for (String line: lines) {
+            char toReplace = line.contains("C") ? 'C' : '_';
+            int index = line.indexOf(toReplace);
+            if (prevIndex == -1 || prevIndex == index) {
+                line = line.replace(toReplace, '|');
+            } else if (prevIndex > index) {
+                line = line.replace(toReplace, '/');
+            } else {
+                line = line.replace(toReplace, '\\');
+            }
+            prevIndex = index;
             System.out.println(line);
         }
     }
