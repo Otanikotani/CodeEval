@@ -22,7 +22,16 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] lists = line.split("\\|");
+            String[] list0 = lists[0].trim().split(" ");
+            String[] list1 = lists[1].trim().split(" ");
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (int i = 0 ; i < list0.length; i++) {
+                sb.append(delimiter).append(Integer.parseInt(list0[i]) * Integer.parseInt(list1[i]));
+                delimiter = " ";
+            }
+            System.out.println(sb.toString());
         }
     }
 
