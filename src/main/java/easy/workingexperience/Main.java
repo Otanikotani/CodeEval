@@ -40,27 +40,55 @@ public class Main {
                 unsortedDates.put(fromDate.getTime(), toDate.getTime());
             }
             Map<Long, Long> sortedDates = new TreeMap<Long, Long>(unsortedDates);
-            long prevTo = Long.MIN_VALUE;
             int monthsSum = 0;
+
+            Map<Integer, int[]> yearMap = new HashMap<Integer, int[]>();
 
             for (Map.Entry<Long, Long> entry: sortedDates.entrySet()) {
                 long from = entry.getKey();
                 long to = entry.getValue();
+                Calendar fromCal = GregorianCalendar.getInstance();
+                fromCal.setTimeInMillis(from);
+                Calendar toCal = GregorianCalendar.getInstance();
+                toCal.setTimeInMillis(to);
+                int fromYear = fromCal.get(Calendar.YEAR);
+                int fromMonth = fromCal.get(Calendar.MONTH);
+                int toYear = toCal.get(Calendar.YEAR);
+                int toMonth = toCal.get(Calendar.MONTH);
 
-                if (from <= prevTo) {
-                    from = prevTo;
+                if (!yearMap.containsKey(fromYear)) {
+                    yearMap.put(fromYear, new int[12]);
+                }
+                if (!yearMap.containsKey(toYear)) {
+                    yearMap.put(toYear, new int[12]);
                 }
 
-                if (to > prevTo) {
-                    Calendar fromCal = GregorianCalendar.getInstance();
-                    fromCal.setTimeInMillis(from);
-                    Calendar toCal = GregorianCalendar.getInstance();
-                    toCal.setTimeInMillis(to);
-                    int m1 = toCal.get(Calendar.YEAR) * 12 + toCal.get(Calendar.MONTH);
-                    int m2 = fromCal.get(Calendar.YEAR) * 12 + fromCal.get(Calendar.MONTH);
-                    monthsSum += m1 - m2 + 1;
+                if (fromYear == toYear) {
+                    for (int i = fromMonth; i <= toMonth; i++) {
+                        yearMap.get(fromYear)[i] = 1;
+                    }
+                } else {
+                    for (int i = fromMonth; i < 12; i++) {
+                        yearMap.get(fromYear)[i] = 1;
+                    }
+                    for (int i = 0; i <= toMonth; i++) {
+                        yearMap.get(toYear)[i] = 1;
+                    }
+
+                    for (int i = fromYear + 1; i < toYear; i++) {
+                        for (int j = 0; j < 12; j++) {
+                            if (!yearMap.containsKey(i)) {
+                                yearMap.put(i, new int[12]);
+                            }
+                            yearMap.get(i)[j] = 1;
+                        }
+                    }
                 }
-                prevTo = to;
+            }
+            for (Map.Entry<Integer, int[]> yearEntry: yearMap.entrySet()) {
+                for (int i = 0 ; i < yearEntry.getValue().length; i++) {
+                    monthsSum += yearEntry.getValue()[i];
+                }
             }
             System.out.println(monthsSum / 12);
 
