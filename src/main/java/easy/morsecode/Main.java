@@ -8,7 +8,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -21,8 +23,59 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        Map<String, String> transcode = new HashMap<String, String>();
+        transcode.put("A", ".-");
+        transcode.put("B", "-...");
+        transcode.put("C", "-.-.");
+        transcode.put("D", "-..");
+        transcode.put("E", ".");
+        transcode.put("F", "..-.");
+        transcode.put("G", "--.");
+        transcode.put("H", "....");
+        transcode.put("I", "..");
+        transcode.put("J", ".---");
+        transcode.put("K", "-.-");
+        transcode.put("L", ".-..");
+        transcode.put("M", "--");
+        transcode.put("N", "-.");
+        transcode.put("O", "---");
+        transcode.put("P", ".--.");
+        transcode.put("Q", "--.-");
+        transcode.put("R", ".-.");
+        transcode.put("S", "...");
+        transcode.put("T", "-");
+        transcode.put("U", "..-");
+        transcode.put("V", "...-");
+        transcode.put("W", ".--");
+        transcode.put("X", "-..-");
+        transcode.put("Y", "-.--");
+        transcode.put("Z", "--..");
+        transcode.put("1", ".----");
+        transcode.put("2", "..---");
+        transcode.put("3", "...--");
+        transcode.put("4", "....-");
+        transcode.put("5", ".....");
+        transcode.put("6", "-....");
+        transcode.put("7", "--...");
+        transcode.put("8", "---..");
+        transcode.put("9", "----.");
+        transcode.put("0", "-----");
+        Map<String, String> reverse = new HashMap<String, String>();
+        for (Map.Entry<String, String> entry: transcode.entrySet()) {
+            reverse.put(entry.getValue(), entry.getKey());
+        }
+        for (String line : lines) {
+            String[] morses = line.split(" ");
+            StringBuilder sb = new StringBuilder();
+            for (String morseCode : morses) {
+                if (reverse.get(morseCode) == null) {
+                    sb.append(" ");
+                } else {
+                    sb.append(reverse.get(morseCode));
+
+                }
+            }
+            System.out.println(sb.toString());
         }
     }
 
