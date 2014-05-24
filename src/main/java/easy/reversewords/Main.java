@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -22,7 +24,16 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] words = line.split(" ");
+            List<String> wordList = Arrays.asList(words);
+            Collections.reverse(wordList);
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (String word: wordList) {
+                sb.append(delimiter).append(word);
+                delimiter = " ";
+            }
+            System.out.println(sb.toString());
         }
     }
 
