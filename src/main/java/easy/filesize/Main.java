@@ -20,10 +20,7 @@ public class Main {
     }
 
     public void solve(String[] args) throws IOException {
-        List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
-        }
+        System.out.println(Files.size(Paths.get(args[0])));
     }
 
 
