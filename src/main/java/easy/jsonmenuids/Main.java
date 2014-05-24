@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -21,8 +22,26 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
+        Pattern pattern = Pattern.compile(".+id.: (\\d+).+");
         for (String line: lines) {
-            System.out.println(line);
+            int sum = 0;
+            if (!line.isEmpty()) {
+                int startIndex = line.indexOf("[");
+                int endIndex = line.indexOf("]");
+                String[] elements = line.substring(startIndex + 1, endIndex).split("},|l,");
+                for (String element: elements) {
+                    if (!element.equals("nul")) {
+                        element = element.trim();
+                        if (element.indexOf("label") != -1) {
+                            Matcher m = pattern.matcher(element);
+                            if (m.matches())
+                                sum += Integer.parseInt(m.group(1));
+                        }
+                    }
+                }
+                System.out.println(sum);
+            }
+
         }
     }
 
