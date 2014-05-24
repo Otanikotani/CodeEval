@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -22,7 +23,23 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] numbers = line.split(" ");
+            List<Float> floats = new ArrayList<Float>();
+            for (String number: numbers) {
+                try {
+                    floats.add(Float.parseFloat(number));
+                } catch (NumberFormatException nfe) {
+
+                }
+            }
+            Collections.sort(floats);
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (Float floatNumber: floats) {
+                sb.append(delimiter).append(String.format("%.3f", floatNumber));
+                delimiter = " ";
+            }
+            System.out.println(sb.toString());
         }
     }
 
