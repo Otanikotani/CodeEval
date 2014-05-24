@@ -27,26 +27,45 @@ public class Main {
     public void solve(String[] args) throws IOException, ParseException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-//            System.out.println(line);
             String[] periods = line.split(";");
             long minDate = Long.MAX_VALUE;
             long maxDate = Long.MIN_VALUE;
+
+            Map<Long, Long> unsortedDates = new HashMap<Long, Long>();
+
             for (String period: periods) {
                 String[] dates = period.split("-");
-                for (String dateStr: dates) {
-                    Date date = new SimpleDateFormat("MMM yyyy").parse(dateStr.trim());
-                    minDate = Math.min(date.getTime(), minDate);
-                    maxDate = Math.max(date.getTime(), maxDate);
-                }
+                Date fromDate = new SimpleDateFormat("MMM yyyy").parse(dates[0].trim());
+                Date toDate = new SimpleDateFormat("MMM yyyy").parse(dates[1].trim());
+                unsortedDates.put(fromDate.getTime(), toDate.getTime());
             }
-            Calendar minCal = GregorianCalendar.getInstance();
-            minCal.setTimeInMillis(minDate);
-            Calendar maxCal = GregorianCalendar.getInstance();
-            maxCal.setTimeInMillis(maxDate);
-            System.out.println(maxCal.get(Calendar.YEAR) - minCal.get(Calendar.YEAR));
+            Map<Long, Long> sortedDates = new TreeMap<Long, Long>(unsortedDates);
+            long prevTo = Long.MIN_VALUE;
+            int monthsSum = 0;
+
+            for (Map.Entry<Long, Long> entry: sortedDates.entrySet()) {
+                long from = entry.getKey();
+                long to = entry.getValue();
+
+                if (from <= prevTo) {
+                    from = prevTo;
+                }
+
+                if (to > prevTo) {
+                    Calendar fromCal = GregorianCalendar.getInstance();
+                    fromCal.setTimeInMillis(from);
+                    Calendar toCal = GregorianCalendar.getInstance();
+                    toCal.setTimeInMillis(to);
+                    int m1 = toCal.get(Calendar.YEAR) * 12 + toCal.get(Calendar.MONTH);
+                    int m2 = fromCal.get(Calendar.YEAR) * 12 + fromCal.get(Calendar.MONTH);
+                    monthsSum += m1 - m2 + 1;
+                }
+                prevTo = to;
+            }
+            System.out.println(monthsSum / 12);
+
         }
     }
-
 
     public List<String> getLines(String[] args) throws IOException {
         if (args.length > 0) {
