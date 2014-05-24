@@ -7,8 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -22,7 +21,27 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] numbers = line.split(" ");
+            List<Integer> ints = new ArrayList<Integer>();
+            for (String number: numbers) {
+                int integer = Integer.parseInt(number);
+                ints.add(integer);
+            }
+
+            Map<Integer, Integer> repetitions = new HashMap<Integer, Integer>();
+            for (Integer integer: ints) {
+                if (!repetitions.containsKey(integer)) {
+                    repetitions.put(integer, 0);
+                }
+                repetitions.put(integer, repetitions.get(integer) + 1);
+            }
+            int min = Integer.MAX_VALUE;
+            for (Map.Entry<Integer, Integer> entry: repetitions.entrySet()) {
+                if (entry.getValue() == 1) {
+                    min = Math.min(min, entry.getKey());
+                }
+            }
+            System.out.println(min == Integer.MAX_VALUE ? "0": ints.indexOf(min) + 1);
         }
     }
 
