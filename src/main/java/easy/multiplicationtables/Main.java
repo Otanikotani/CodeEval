@@ -20,9 +20,20 @@ public class Main {
     }
 
     public void solve(String[] args) throws IOException {
-        List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        for (int i = 1; i <= 12; i++) {
+            StringBuilder sb = new StringBuilder();
+            String delimiter = " ";
+            for (int j = 1; j <= 12; j++) {
+                if (i * j < 10) {
+                    delimiter = "   ";
+                } else if (i * j < 100) {
+                    delimiter = "  ";
+                } else {
+                    delimiter = " ";
+                }
+                sb.append(delimiter).append(i * j);
+            }
+            System.out.println(sb.toString().trim());
         }
     }
 
