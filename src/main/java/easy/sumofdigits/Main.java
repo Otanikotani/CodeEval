@@ -22,7 +22,11 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            int sum = 0;
+            for (char ch: line.toCharArray()) {
+                sum += ch - 48;
+            }
+            System.out.println(sum);
         }
     }
 
