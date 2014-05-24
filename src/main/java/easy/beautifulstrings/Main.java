@@ -7,8 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -21,9 +20,31 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        for (String line : lines) {
+            Map<Character, Integer> chars = new TreeMap<Character, Integer>();
+            for (char ch : line.toCharArray()) {
+                if (Character.isLetter(ch)) {
+                    Character lowerCased = Character.toLowerCase(ch);
+                    if (!chars.containsKey(lowerCased)) {
+                        chars.put(lowerCased, 0);
+                    }
+                    chars.put(lowerCased, chars.get(lowerCased) + 1);
+                }
+            }
+
+            List<Integer> values = new ArrayList<Integer>(chars.values());
+            Collections.sort(values, Collections.reverseOrder());
+            int sum = 0;
+            int beauty = 26;
+            for (Integer integer : values) {
+                sum += integer * beauty;
+                beauty--;
+            }
+            System.out.println(sum);
+
+
         }
+
     }
 
 
