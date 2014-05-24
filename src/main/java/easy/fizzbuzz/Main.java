@@ -22,7 +22,27 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(" ");
+            Integer a = Integer.parseInt(parts[0]);
+            Integer b = Integer.parseInt(parts[1]);
+            Integer n = Integer.parseInt(parts[2]);
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (int i = 1; i <= n; i++) {
+                sb.append(delimiter);
+                if (i % a == 0 || i % b == 0) {
+                    if (i % a == 0) {
+                        sb.append("F");
+                    }
+                    if (i % b == 0) {
+                        sb.append("B");
+                    }
+                } else {
+                    sb.append(i);
+                }
+                delimiter = " ";
+            }
+            System.out.println(sb.toString());
         }
     }
 
