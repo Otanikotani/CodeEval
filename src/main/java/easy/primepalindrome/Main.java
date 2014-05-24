@@ -20,11 +20,40 @@ public class Main {
     }
 
     public void solve(String[] args) throws IOException {
-        List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        int maxPalindrome = 0;
+        for (int i = 0 ; i < 1000; i++) {
+            if (isPrime(i) && isPalindrome(i)) {
+                maxPalindrome = i;
+            }
         }
+        System.out.println(maxPalindrome);
     }
+
+    public static boolean isPrime(int number) {
+        int sqrt = (int) Math.sqrt(number) + 1;
+        for (int i = 2; i < sqrt; i++) {
+            if (number % i == 0) {
+                // number is perfectly divisible - no prime
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isPalindrome(int number) {
+        List<Integer> digits = new ArrayList<Integer>();
+        while( number > 0) {
+            digits.add(number % 10);
+            number /= 10;
+        }
+        if (digits.size() == 2) {
+            return digits.get(0) == digits.get(1);
+        } else if (digits.size() == 3) {
+            return digits.get(0) == digits.get(2);
+        }
+        return true;
+    }
+
 
 
     public List<String> getLines(String[] args) throws IOException {
