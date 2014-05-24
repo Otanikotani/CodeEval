@@ -8,7 +8,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -22,7 +24,25 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(",");
+            Map<Integer, Integer> reps = new HashMap<Integer, Integer>();
+            int size = 0;
+            for (String part: parts) {
+                int number = Integer.parseInt(part);
+                if (!reps.containsKey(number)) {
+                    reps.put(number, 0);
+                }
+                reps.put(number, reps.get(number) + 1);
+                size++;
+            }
+            int result = -1;
+            for (Map.Entry<Integer, Integer> entry: reps.entrySet()) {
+                if (entry.getValue() > size/2) {
+                    result = entry.getKey();
+                    break;
+                }
+            }
+            System.out.println(result == -1 ? "None" : result);
         }
     }
 
