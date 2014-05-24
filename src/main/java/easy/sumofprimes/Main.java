@@ -1,15 +1,15 @@
 package easy.sumofprimes;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.io.InputStreamReader;
+        import java.nio.charset.Charset;
+        import java.nio.file.Files;
+        import java.nio.file.Paths;
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.regex.Pattern;
 
 public class Main {
 
@@ -20,11 +20,28 @@ public class Main {
     }
 
     public void solve(String[] args) throws IOException {
-        List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        int sum = 0;
+        int i = 2;
+        for (int count = 0; count != 1000; i++) {
+            if (isPrime(i)) {
+                count++;
+                sum += i;
+            }
         }
+        System.out.println(sum);
     }
+
+    public static boolean isPrime(int number) {
+        int sqrt = (int) Math.sqrt(number) + 1;
+        for (int i = 2; i < sqrt; i++) {
+            if (number % i == 0) {
+                // number is perfectly divisible - no prime
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 
     public List<String> getLines(String[] args) throws IOException {
