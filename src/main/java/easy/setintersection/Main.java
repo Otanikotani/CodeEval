@@ -7,8 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -22,7 +21,25 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(";");
+            Set<Integer> set0 = new LinkedHashSet<Integer>();
+            for (String part: parts[0].split(",")) {
+                set0.add(Integer.parseInt(part));
+            }
+            Set<Integer> set1 = new LinkedHashSet<Integer>();
+            for (String part: parts[1].split(",")) {
+                set1.add(Integer.parseInt(part));
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String delimiter = "";
+            for (Integer number: set0) {
+                if (set1.contains(number)) {
+                    stringBuilder.append(delimiter).append(number);
+                    delimiter = ",";
+                }
+            }
+            System.out.println(stringBuilder.toString());
         }
     }
 
