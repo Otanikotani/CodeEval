@@ -22,7 +22,23 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            int value = Integer.parseInt(line);
+            int fives = 0;
+            int thirds = 0;
+            int ones = 0;
+            while( value >= 5) {
+                value -= 5;
+                fives++;
+            }
+            while( value >= 3) {
+                value -= 3;
+                thirds++;
+            }
+            while( value > 0 ) {
+                value--;
+                ones++;
+            }
+            System.out.println(fives + thirds + ones);
         }
     }
 
