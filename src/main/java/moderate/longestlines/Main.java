@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -21,8 +23,23 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        int N = Integer.parseInt(lines.get(0));
+        List<String> sortedLines = new ArrayList<String>();
+        for (int i = 1; i < lines.size(); i++) {
+            String line = lines.get(i);
+            if (!line.isEmpty()) {
+                sortedLines.add(line);
+            }
+        }
+        Collections.sort(sortedLines, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return new Integer(o1.length()).compareTo(o2.length());
+            }
+        });
+        Collections.reverse(sortedLines);
+        for (int i = 0; i < N; i++ ) {
+            System.out.println(sortedLines.get(i));
         }
     }
 
