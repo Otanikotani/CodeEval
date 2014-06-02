@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -22,8 +24,49 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] numbersStr = line.split(" ");
+            List<Integer> sequence = new ArrayList<Integer>();
+            for (String numberS: numbersStr) {
+                sequence.add(Integer.parseInt(numberS));
+            }
+            Collections.reverse(sequence);
+            List<Integer> indexes = userTurtleAndHare(sequence);
+            int least = indexes.get(0);
+            int most = indexes.get(1);
+            StringBuilder sb = new StringBuilder();
+            String delimiter = "";
+            for (int i = most - 1; i >= least; i--) {
+                sb.append(delimiter).append(sequence.get(i));
+                delimiter = " ";
+            }
+            System.out.println(sb.toString());
         }
+    }
+
+    private List<Integer> userTurtleAndHare(List<Integer> sequence) {
+        List<Integer> result = new ArrayList<Integer>();
+        int lam, mu = 0;
+        int turtle = 1;
+        int hare = 2;
+        while (sequence.get(turtle) != sequence.get(hare)) {
+            turtle++;
+            hare += 2;
+        }
+        turtle = 0;
+        while (sequence.get(turtle) != sequence.get(hare)) {
+            turtle++;
+            hare++;
+            mu++;
+        }
+        lam = 1;
+        hare = turtle + 1;
+        while (sequence.get(turtle) != sequence.get(hare)) {
+            hare++;
+            lam++;
+        }
+        result.add(mu);
+        result.add(lam);
+        return result;
     }
 
 
