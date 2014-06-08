@@ -22,7 +22,11 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] elements = line.split(" ");
+            int index = Integer.parseInt(elements[elements.length - 1]);
+            if (index <= (elements.length - 1)) {
+                System.out.println(elements[elements.length - 1 - index]);
+            }
         }
     }
 
