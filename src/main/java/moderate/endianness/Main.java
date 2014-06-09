@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,9 +15,14 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Main endianness = new Main();
-        endianness.solve(args);
-        return;
+        if (ByteOrder.nativeOrder().equals(ByteOrder.BIG_ENDIAN)) {
+            System.out.println("BigEndian");
+        } else {
+            System.out.println("LittleEndian");
+        }
+//        Main endianness = new Main();
+//        endianness.solve(args);
+//        return;
     }
 
     public void solve(String[] args) throws IOException {
