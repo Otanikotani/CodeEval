@@ -22,9 +22,26 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] numbersStr = line.split(",");
+            List<Integer> integers = new ArrayList<Integer>();
+            for (String number: numbersStr) {
+                integers.add(Integer.parseInt(number.trim()));
+            }
+            System.out.println(maxSubArray(integers));
         }
     }
+
+    private int maxSubArray(List<Integer> arr) {
+        int maxEndingHere = arr.get(0);
+        int maxSoFar = arr.get(0);
+        for (int i = 1; i < arr.size(); i++) {
+            int x = arr.get(i);
+            maxEndingHere = Math.max(x, x + maxEndingHere);
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+        }
+        return maxSoFar;
+    }
+
 
 
     public List<String> getLines(String[] args) throws IOException {
