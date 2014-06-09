@@ -22,7 +22,19 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(",");
+            String str1 = parts[0];
+            String str2 = parts[1];
+            if (str2.length() > str1.length()) {
+                System.out.println("0");
+            } else {
+                String substr = str1.substring(str1.length() - str2.length(), str1.length());
+                if (substr.equals(str2)) {
+                    System.out.println("1");
+                } else {
+                    System.out.println("0");
+                }
+            }
         }
     }
 
