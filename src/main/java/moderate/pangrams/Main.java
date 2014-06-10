@@ -22,7 +22,22 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            boolean[] arr = new boolean[123];
+            for (char ch: line.toLowerCase().toCharArray()) {
+                if (ch < 123 && ch >= 97)
+                    arr[ch] = true;
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 97; i < 123; i++) {
+                if (!arr[i]) {
+                    stringBuilder.append(Character.valueOf((char)i));
+                }
+            }
+            if (stringBuilder.toString().isEmpty()) {
+                System.out.println("NULL");
+            } else {
+                System.out.println(stringBuilder.toString());
+            }
         }
     }
 
