@@ -21,8 +21,43 @@ public class Main {
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
-        for (String line: lines) {
-            System.out.println(line);
+        for (String line : lines) {
+            String[] parts = line.split(";");
+            Integer number = Integer.parseInt(parts[1]);
+            String[] arrStr = parts[0].split(",");
+            List<Integer> arr = new ArrayList<Integer>();
+            for (String str : arrStr) {
+                arr.add(Integer.parseInt(str));
+            }
+            List<String> result = new ArrayList<String>();
+            for (int i = 0; i < arr.size(); i++) {
+                int first = arr.get(i);
+                int sum = -1;
+                for (int j = i + 1; j < arr.size(); j++) {
+                    int second = arr.get(j);
+                    sum = first + second;
+                    if (sum > number) {
+                        sum = -1;
+                        break;
+                    } else if (sum == number) {
+                        String expr = String.valueOf(first) +
+                                "," +
+                                String.valueOf(second);
+                        result.add(expr);
+                    }
+                }
+            }
+            if (result.isEmpty()) {
+                System.out.println("NULL");
+            } else {
+                StringBuilder stringBuilder = new StringBuilder();
+                String delimiter = "";
+                for (String res: result) {
+                    stringBuilder.append(delimiter).append(res);
+                    delimiter = ";";
+                }
+                System.out.println(stringBuilder.toString());
+            }
         }
     }
 
