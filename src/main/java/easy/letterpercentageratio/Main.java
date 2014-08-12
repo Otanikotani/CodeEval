@@ -1,4 +1,4 @@
-package moderate.emailvalidation;
+package easy.letterpercentageratio;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,19 +14,26 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Main emailvalidation = new Main();
-        emailvalidation.solve(args);
+        Main letterpercentageratio = new Main();
+        letterpercentageratio.solve(args);
         return;
     }
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            if (line.matches("(.+)@(.+)\\.(.+)")) {
-                System.out.println("true");
-            } else {
-                System.out.println("false");
+            float lowerCaseCount = 0;
+            for (char ch: line.toCharArray()) {
+                if (Character.isLowerCase(ch)) {
+                    lowerCaseCount++;
+                }
             }
+            StringBuilder stringBuilder = new StringBuilder();
+            float lowerCaseRatio = lowerCaseCount / line.length() * 100.0f;
+            float upperCaseRatio = (line.length() - lowerCaseCount) / line.length() * 100.0f ;
+            stringBuilder.append("lowercase: ").append(String.format("%.2f", lowerCaseRatio)).append(" ");
+            stringBuilder.append("uppercase: ").append(String.format("%.2f", upperCaseRatio)).append(" ");
+            System.out.println(stringBuilder.toString());
         }
     }
 
