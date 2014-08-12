@@ -1,4 +1,4 @@
-package easy.jugglingwithzeroes;
+package moderate.batschallenge;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,41 +14,15 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Main jugglingZeroes = new Main();
-        jugglingZeroes.solve(args);
+        Main batsChallenge = new Main();
+        batsChallenge.solve(args);
         return;
     }
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            String[] parts = line.split(" ");
-            int index = 0;
-            List<String> flags = new ArrayList<String>();
-            List<String> sequences = new ArrayList<String>();
-            for (String part: parts) {
-                if (index++ % 2 > 0) {
-                    sequences.add(part);
-                } else {
-                    flags.add(part);
-                }
-            }
-            StringBuilder binaryStr = new StringBuilder();
-            for (int i = 0 ; i < flags.size(); i++) {
-                String flag = flags.get(i);
-                String sequence = sequences.get(i);
-                if ("00".equals(flag)) {
-                    for (int j = 0 ; j < sequence.length(); j++ ) {
-                        binaryStr.append("1");
-                    }
-                } else {
-                    binaryStr.append(sequence);
-                }
-
-            }
-            System.out.println(Long.parseLong(binaryStr.toString(), 2));
-
-
+            System.out.println(line);
         }
     }
 

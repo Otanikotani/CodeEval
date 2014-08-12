@@ -1,4 +1,4 @@
-package easy.jugglingwithzeroes;
+package easy.agedistribution;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,42 +14,39 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Main jugglingZeroes = new Main();
-        jugglingZeroes.solve(args);
+        Main ageDistribution = new Main();
+        ageDistribution.solve(args);
         return;
     }
 
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            String[] parts = line.split(" ");
-            int index = 0;
-            List<String> flags = new ArrayList<String>();
-            List<String> sequences = new ArrayList<String>();
-            for (String part: parts) {
-                if (index++ % 2 > 0) {
-                    sequences.add(part);
-                } else {
-                    flags.add(part);
-                }
+            int age = Integer.parseInt(line);
+            String str = "This program is for humans";
+            if (in(age, 0, 2))  {
+                str = "Still in Mama's arms";
+            } else if (in(age, 3, 4)) {
+                str = "Preschool Maniac";
+            } else if (in(age, 5, 11)) {
+                str = "Elementary school";
+            } else if (in(age, 12, 14)) {
+                str = "Middle school";
+            } else if (in(age, 15, 18)) {
+                str = "High school";
+            } else if (in(age, 19, 22)) {
+                str = "College";
+            } else if (in(age, 23, 65)) {
+                str = "Working for the man";
+            } else if (in(age, 66, 100)) {
+                str = "The Golden Years";
             }
-            StringBuilder binaryStr = new StringBuilder();
-            for (int i = 0 ; i < flags.size(); i++) {
-                String flag = flags.get(i);
-                String sequence = sequences.get(i);
-                if ("00".equals(flag)) {
-                    for (int j = 0 ; j < sequence.length(); j++ ) {
-                        binaryStr.append("1");
-                    }
-                } else {
-                    binaryStr.append(sequence);
-                }
-
-            }
-            System.out.println(Long.parseLong(binaryStr.toString(), 2));
-
-
+            System.out.println(str);
         }
+    }
+
+    private boolean in(int age, int i, int i1) {
+        return age >= i && age <= i1;
     }
 
 
