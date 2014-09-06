@@ -16,7 +16,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main doublesquares = new Main();
         doublesquares.solve(args);
-        return;
     }
 
     public void solve(String[] args) throws IOException {
