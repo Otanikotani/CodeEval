@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -22,7 +23,21 @@ public class Main {
     public void solve(String[] args) throws IOException {
         List<String> lines = getLines(args);
         for (String line: lines) {
-            System.out.println(line);
+            String[] parts = line.split(";");
+            final int N = Integer.parseInt(parts[0]);
+            int[] arr = new int[N - 1];
+            for (String numberStr: parts[1].split(",")) {
+                Integer number = Integer.parseInt(numberStr);
+                arr[number] += number;
+            }
+            int result = 0;
+            for (int i = 1; i < N - 1; i++) {
+                if (arr[i] != i) {
+                    result = i;
+                    break;
+                }
+            }
+            System.out.println(result);
         }
     }
 
